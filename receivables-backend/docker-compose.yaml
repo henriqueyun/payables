@@ -1,0 +1,12 @@
+services:
+    backend:
+        image: payable-nestjs:latest
+        container_name: payable-backend
+        ports:
+         - 3000:3000 
+    broker:
+        image: rabbitmq:4.0.3-management
+        container_name: payable-rabbitmq
+        ports:
+        - 5672:5672    
+        - 15672:15672

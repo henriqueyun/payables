@@ -5,11 +5,12 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { AssignorModule } from './integrations/assignor/assignor.module';
 import { AuthModule } from './integrations/auth/auth.module';
+import { RabbitmqModule } from './rabbitmq/rabbitmq.module';
 
 @Module({
   imports: [PayableModule, PrismaModule, ConfigModule.forRoot({
     isGlobal: true
-  }), AssignorModule, AuthModule],
+  }), AssignorModule, AuthModule, RabbitmqModule],
   controllers: [AppController],
   providers: [PrismaModule],
 })

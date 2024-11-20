@@ -1,11 +1,7 @@
-import { AssignorDTO } from "../../assignor/dto/AssignorDTO"
+import { AssignorDTO } from "./AssignorDTO"
 import { ReceivableDTO } from "./ReceivableDTO"
 
 export class PayableDTO {
     receivable: ReceivableDTO
     assignor: AssignorDTO
-}
-
-export class PayableBatchDTO {
-    payables: []
 }
