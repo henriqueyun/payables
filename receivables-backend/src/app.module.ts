@@ -4,11 +4,12 @@ import { PayableModule } from './integrations/payable/payable.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { AssignorModule } from './integrations/assignor/assignor.module';
+import { AuthModule } from './integrations/auth/auth.module';
 
 @Module({
   imports: [PayableModule, PrismaModule, ConfigModule.forRoot({
     isGlobal: true
-  }), AssignorModule],
+  }), AssignorModule, AuthModule],
   controllers: [AppController],
   providers: [PrismaModule],
 })
