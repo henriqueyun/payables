@@ -13,27 +13,29 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Receivable {
+model Payable {
     id           String   @id @default(uuid())
     value        Float
     emissionDate DateTime
     assignor     String
 
-	@@map("receivable")
+	@@map("payables")
 }
 
 model Assignor {
     id       String @id @default(uuid()) 
     document String
-    email    String
+    email    String @unique
     phone    String
     name     String
 
-    @@map("assignor")
+    @@map("assignors")
 }
 
 model User {
     id  String @id @default(uuid())
     login String @unique
     password String
+
+    @@map("users")
 }

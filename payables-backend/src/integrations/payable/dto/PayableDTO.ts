@@ -1,6 +1,6 @@
-import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator'
+import { IsArray, IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator'
 
-export class ReceivableDTO {
+export class PayableDTO {
     @IsUUID()
     @IsOptional()
     id: string;
@@ -16,4 +16,9 @@ export class ReceivableDTO {
     @IsString()
     @IsNotEmpty()
     assignor: string;
+}
+
+export class PayableBatchDTO {
+    @IsArray()
+    payables: []
 }

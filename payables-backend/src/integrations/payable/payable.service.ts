@@ -8,23 +8,18 @@ import { RabbitMQService } from "src/rabbitmq/rabbitmq.service";
 export class PayableService {
     constructor(private prisma: PrismaService, private config: ConfigService, private rabbitmq: RabbitMQService) { }
 
-    async createPayable(payable: PayableDTO): Promise<PayableDTO> {
-        const [receivable, assignor] = await Promise.all([
-            this.prisma.receivable.create({ data: { ...payable.receivable } }),
-            this.prisma.assignor.create({ data: { ...payable.assignor } })
-        ])
-        return { receivable, assignor }
+    async create(payable: PayableDTO): Promise<PayableDTO> {
+        return await this.prisma.payable.create({ data: payable })
     }
 
-    async batchCreatePayable(dto: PayableBatchDTO) {
+    async batchCreate(dto: PayableBatchDTO) {
         const { payables } = dto
-        console.log(payables.length)
         if (payables.length > (this.config.get('PAYABLE_BATCH_LIMIT') || 10000)) {
             throw new PayloadTooLargeException()
         }
 
-        const promises = payables.map(async (p)=> {
-             return this.rabbitmq.sendPayable(p)
+        const promises = payables.map(async (p) => {
+            return this.rabbitmq.sendPayable(p)
         })
 
         await Promise.all(promises)
@@ -32,8 +27,22 @@ export class PayableService {
         return
     }
 
-    findPayable(id: string) {
-        const payable = this.prisma.receivable.findFirst({ where: { id }})
-        return payable  
+    findAll() {
+        return this.prisma.payable.findMany()
+    }
+
+    find(id: string) {
+        return this.prisma.payable.findFirstOrThrow({ where: { id } })
+    }
+
+    update(id: string, dto: Partial<PayableDTO>) {
+        return this.prisma.payable.update({
+            where: { id },
+            data: { ...dto, id }
+        })
+    }
+
+    remove(id: string) {
+        return this.prisma.payable.delete({ where: { id } })
     }
 }

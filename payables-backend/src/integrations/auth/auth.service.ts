@@ -16,7 +16,7 @@ export class AuthService {
 
   async signIn(userDTO: UserDTO) {
     const { login, password } = userDTO
-    const user = await this.prisma.user.findFirst({ where: { login } })
+    const user = await this.prisma.user.findFirstOrThrow({ where: { login } })
     const hashPassword = user.password
 
     const isPasswordValid = await compare(password, hashPassword)
