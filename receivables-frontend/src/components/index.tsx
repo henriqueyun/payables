@@ -9,7 +9,7 @@ export const FormMain = styled.main`
   width: 600px;
   align-items: center;
   justify-content: center;
-  border: 4px solid lightgreen;
+  border: 4px solid #0a36b0d9;
   border-radius: 4px;
 `
 export const FormFieldSpan = styled.span`

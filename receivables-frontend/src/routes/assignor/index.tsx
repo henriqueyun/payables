@@ -1,11 +1,10 @@
-import { FormFieldSpan, FormMain, FormTitle } from "../components"
+import { createFileRoute } from '@tanstack/react-router'
+import { FormFieldSpan, FormMain, FormTitle } from '../../components'
 
 const AssignorForm = () => {
   return (
     <FormMain>
-      <FormTitle>
-        Payable Register
-      </FormTitle>
+      <FormTitle>Payable Register</FormTitle>
       <FormFieldSpan>
         <label>Name</label>
         <input name="name" placeholder="Type your name" type="text" />
@@ -18,7 +17,8 @@ const AssignorForm = () => {
 
       <FormFieldSpan>
         <label>Phone</label>
-        <input name="phone" placeholder="Type your phone" type="tel" /> {/* TODO: check the business rules to see if tel need to be checked */}
+        <input name="phone" placeholder="Type your phone" type="tel" />{' '}
+        {/* TODO: check the business rules to see if tel need to be checked */}
       </FormFieldSpan>
 
       <FormFieldSpan>
@@ -26,9 +26,15 @@ const AssignorForm = () => {
         <input name="document" placeholder="Type your document" type="text" />
       </FormFieldSpan>
 
-      <input type="button" value="Register" onClick={(e) => alert('Registered')} />
+      <input
+        type="button"
+        value="Register"
+        onClick={(e) => alert('Registered')}
+      />
     </FormMain>
   )
 }
 
-export default AssignorForm
+export const Route = createFileRoute('/assignor/')({
+  component: AssignorForm,
+})

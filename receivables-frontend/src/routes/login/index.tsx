@@ -1,11 +1,10 @@
-import { FormFieldSpan, FormMain, FormTitle } from "../components"
+import { createFileRoute } from '@tanstack/react-router'
+import { FormFieldSpan, FormMain, FormTitle } from '../../components'
 
 const Login = () => {
   return (
     <FormMain>
-      <FormTitle>
-        Login
-      </FormTitle>
+      <FormTitle>Login</FormTitle>
       <FormFieldSpan>
         <label>Login:</label>
         <input name="value" placeholder="Type the login" type="text" />
@@ -13,7 +12,11 @@ const Login = () => {
 
       <FormFieldSpan>
         <label>Password</label>
-        <input name="password" placeholder="Type the password" type="password" />
+        <input
+          name="password"
+          placeholder="Type the password"
+          type="password"
+        />
       </FormFieldSpan>
 
       <input type="button" value="Login" onClick={(e) => alert('Logged in!')} />
@@ -21,4 +24,6 @@ const Login = () => {
   )
 }
 
-export default Login
+export const Route = createFileRoute('/login/')({
+  component: Login,
+})

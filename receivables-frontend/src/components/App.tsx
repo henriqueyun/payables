@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-import PayableForm from './Payable/PayableForm'
-import Nav from './Nav'
-import AssignorForm from './Assignor/AssignorForm'
-import Login from './Auth/Login'
+import Nav from '../components/Nav'
 
 const AppMain = styled.div`
   width: 100vw;
@@ -18,7 +15,6 @@ function App() {
     <>
       <Nav />
       <AppMain>
-        <Login />
       </AppMain>
     </>
   )
