@@ -20,7 +20,16 @@ export const FormFieldSpan = styled.span`
 `
 
 
-export const FormTitle = styled.h1`
+export const Title = styled.h1`
   font-size: 36px;
   margin: 36px 0;
+`
+
+export const AppMain = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 `

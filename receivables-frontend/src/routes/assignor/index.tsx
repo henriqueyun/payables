@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { FormFieldSpan, FormMain, FormTitle } from '../../components'
+import { FormFieldSpan, FormMain, Title } from '../../components'
 
 const AssignorForm = () => {
   return (
     <FormMain>
-      <FormTitle>Payable Register</FormTitle>
+      <Title>Payable Register</Title>
       <FormFieldSpan>
         <label>Name</label>
         <input name="name" placeholder="Type your name" type="text" />

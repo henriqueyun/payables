@@ -1,3 +1,9 @@
 * {
-    font-family: 'Taboma', sans-serif;
+    font-family: 'Tahoma', sans-serif;
+    box-sizing: border-box;
+}
+
+
+strong {
+    font-weight: 600;
 }
