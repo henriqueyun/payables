@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { PayableModule } from './integrations/payable/payable.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
@@ -14,7 +13,6 @@ import { prismaKnownRequestErrorFilter } from './errors/errors.filter';
   imports: [PayableModule, AssignorModule, PrismaModule, ConfigModule.forRoot({
     isGlobal: true
   }), AuthModule, RabbitmqModule, ErrorsModule],
-  controllers: [AppController],
   providers: [PrismaModule,
     {
       provide: APP_FILTER,
