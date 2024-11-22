@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { Assignor } from '../../client/types/Assignor'
 import { HTTPClient } from '../../client/HTTPClient'
-import { FormFieldSpan, FormMain, Title } from '..'
+import { Button, FormActions, FormFieldSpan, FormMain, Title } from '..'
 
 
 type AssignorData = Assignor | Omit<Assignor, "id">
@@ -97,7 +97,7 @@ const AssignorForm = ({ action, assignor }: AssignorFormProps) => {
                     name="phone"
                     placeholder="Type the phone number"
                     type="tel"
-                    value={formAssignor.name}
+                    value={formAssignor.phone}
                     onChange={(e) =>
                         setAssignor((p) => ({ ...p, phone: e.target.value }))
                     }
@@ -110,21 +110,23 @@ const AssignorForm = ({ action, assignor }: AssignorFormProps) => {
                     name="document"
                     placeholder="Type the name"
                     type="input"
-                    value={formAssignor.name}
+                    value={formAssignor.document}
                     onChange={(e) =>
-                        setAssignor((p) => ({ ...p, name: e.target.value }))
+                        setAssignor((p) => ({ ...p, document: e.target.value }))
                     }
                 />
             </FormFieldSpan>
-
-            <input
-                type="button"
-                value="Register"
-                onClick={() => {
-                    mutation.mutate(formAssignor)
-                }}
-            />
-        </FormMain>
+            <FormActions>
+                <Button
+                    type="button"
+                    onClick={() => {
+                        mutation.mutate(formAssignor)
+                    }}
+                >
+                    Save
+                </Button>
+            </FormActions>
+        </FormMain >
     )
 }
 

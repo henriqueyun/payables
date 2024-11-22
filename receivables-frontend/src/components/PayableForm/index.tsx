@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { Payable } from '../../client/types/Payable'
 import { Assignor } from '../../client/types/Assignor'
 import { HTTPClient } from '../../client/HTTPClient'
-import { FormFieldSpan, FormMain, Title } from '..'
+import { Button, FormFieldSpan, FormMain, Title } from '..'
 
 
 type PayableData = Payable | Omit<Payable, "id">
@@ -127,13 +127,14 @@ const PayableForm = ({ action, payable }: PayableFormProps) => {
                 </select>
             </FormFieldSpan>
 
-            <input
+            <Button
                 type="button"
-                value="Register"
                 onClick={() => {
                     mutation.mutate(formPayable)
                 }}
-            />
+            >
+                Save
+            </Button>
         </FormMain>
     )
 }
