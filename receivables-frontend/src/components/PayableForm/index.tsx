@@ -13,31 +13,31 @@ type PayableData = Payable | Omit<Payable, "id">
 type PayableFormProps = { action: 'create' | 'update', payable?: PayableData }
 
 const PayableForm = ({ action, payable }: PayableFormProps) => {
-    
-    
+
+
     const payableHttpClient = new HTTPClient<PayableData>('/integration/payable')
     const assignorHttpClient = new HTTPClient<Assignor>('/integration/assignor')
     const navigate = useNavigate()
-    
-    
+
+
     const [formPayable, setPayable] = useState<PayableData>(payable || {
         value: 0,
         emissionDate: new Date(),
         assignor: ''
     })
-    
+
     useEffect(() => {
         if (payable) {
-            setPayable((_old) => payable)
+            setPayable((_) => payable)
         }
     }, [payable])
-    
+
     const mutation = useMutation({
         mutationFn: (p: PayableData) => {
             const payableHasId = !!("id" in p)
             const isUpdate = action === 'update' && payableHasId
-            // TODO: check how to throw error in a mutation and assert both isUpdate or isCreate can't be false at the same time
-            
+
+            // TODO: also check how to throw error in a mutation and assert both isUpdate or isCreate can't be false at the same time
             if (isUpdate) {
                 return payableHttpClient.patch(p.id, p)
             } else {
@@ -46,19 +46,19 @@ const PayableForm = ({ action, payable }: PayableFormProps) => {
 
         },
         onSuccess: () => {
-            navigate({ to: '/payable' })
+            navigate({ to: '/payable/list' })
         },
     })
-    
+
     const { data, isPending, error } = useQuery({
         queryKey: [`assignor-${action}${"id" in formPayable && `-${formPayable.id}`}`],
         queryFn: assignorHttpClient.getAll,
     })
-    
+
     if (isPending) return 'Loading...'
-    
+
     if (error) return 'An error has occurred: ' + error.message
-    
+
     return (
         <FormMain>
             <Title>Payable {action === 'create' ? 'Register' : 'Edit'}</Title>
@@ -74,7 +74,7 @@ const PayableForm = ({ action, payable }: PayableFormProps) => {
                         value={formPayable.id}
                         disabled
                         readOnly
-                        />
+                    />
                 </FormFieldSpan>
             }
             <FormFieldSpan>
@@ -94,7 +94,6 @@ const PayableForm = ({ action, payable }: PayableFormProps) => {
             <FormFieldSpan>
                 <label>Emission Date</label>
                 <input
-                    className="[&::-webkit-inner-spin-button]:appearance-none" // omits input[type=number] buttons
                     name="emission_date"
                     placeholder="dd-mm-yyyy"
                     type="date"

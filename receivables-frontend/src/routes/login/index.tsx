@@ -19,7 +19,7 @@ const Login = () => {
         />
       </FormFieldSpan>
 
-      <input type="button" value="Login" onClick={(e) => alert('Logged in!')} />
+      <input type="button" value="Login" onClick={(_) => alert('Logged in!')} />
     </FormMain>
   )
 }

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Payable } from '../../client/types/Payable'
 import { HTTPClient } from '../../client/HTTPClient'
@@ -13,6 +13,15 @@ const PayableList = () => {
     queryKey: ['payables'],
     queryFn: client.getAll,
     initialData: [],
+  })
+
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: client.delete,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['payables'] })
+    },
   })
 
   const PayableList = styled.ul`
@@ -41,13 +50,8 @@ const PayableList = () => {
   `
 
   const PayableItemActions = styled.span`
-    border: 3px solid #0a36b0d9;
     display: flex;
-    flex-flow: column nowrap;
-    gap: 16px;
-    width: 75%;
-    padding: 16px;
-    margin: 0 auto;
+    gap: 8px;
   `
 
   if (isPending) return 'Loading...'
@@ -61,9 +65,6 @@ const PayableList = () => {
         {data?.map((p) => (
           <PayableItem key={p.id}>
             <span>
-              <strong>ID</strong> {p.id}
-            </span>
-            <span>
               <strong>Value</strong> {p.value}
             </span>
             <span>
@@ -74,7 +75,9 @@ const PayableList = () => {
               <strong>Assignor</strong> {p.assignor}
             </span>
             <PayableItemActions>
-              <Link to={`/payable/update/${p.id}`}>RECEBA A INTELIGÊNCIA</Link>
+              <Link to={`/payable/details/${p.id}`}>Details</Link>
+              <Link to={`/payable/update/${p.id}`}>Edit</Link>
+              <Link onClick={() => mutation.mutate(p.id)}>Erase</Link>
             </PayableItemActions>
           </PayableItem>
         ))}
@@ -83,6 +86,6 @@ const PayableList = () => {
   )
 }
 
-export const Route = createFileRoute('/payable/')({
+export const Route = createFileRoute('/payable/list')({
   component: PayableList,
 })

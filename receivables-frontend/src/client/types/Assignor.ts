@@ -3,5 +3,5 @@ export type Assignor = {
     name: string
     phone: string;
     email: string;
-    document: Date;
+    document: string;
 }

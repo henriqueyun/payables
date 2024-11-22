@@ -22,9 +22,14 @@ export const FormFieldSpan = styled.span`
 
 export const Title = styled.h1`
   font-size: 36px;
-  margin: 36px 0;
+  margin: 24px 0;
 `
 
+
+export const Subtitle = styled.h2`
+  font-size: 24px;
+  margin: 8px 0;
+`
 export const AppMain = styled.div`
   width: 100vw;
   height: 100vh;

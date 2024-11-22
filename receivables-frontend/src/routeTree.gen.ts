@@ -13,11 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as PayableIndexImport } from './routes/payable/index'
 import { Route as LoginIndexImport } from './routes/login/index'
-import { Route as AssignorIndexImport } from './routes/assignor/index'
+import { Route as PayableListImport } from './routes/payable/list'
 import { Route as PayableCreateImport } from './routes/payable/create'
+import { Route as AssignorCreateImport } from './routes/assignor/create'
 import { Route as PayableUpdateIdImport } from './routes/payable/update.$id'
+import { Route as PayableDetailsIdImport } from './routes/payable/details.$id'
+import { Route as AssignorDetailsIdImport } from './routes/assignor/details.$id'
 
 // Create Virtual Routes
 
@@ -31,21 +33,15 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const PayableIndexRoute = PayableIndexImport.update({
-  id: '/payable/',
-  path: '/payable/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const LoginIndexRoute = LoginIndexImport.update({
   id: '/login/',
   path: '/login/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AssignorIndexRoute = AssignorIndexImport.update({
-  id: '/assignor/',
-  path: '/assignor/',
+const PayableListRoute = PayableListImport.update({
+  id: '/payable/list',
+  path: '/payable/list',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -55,9 +51,27 @@ const PayableCreateRoute = PayableCreateImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AssignorCreateRoute = AssignorCreateImport.update({
+  id: '/assignor/create',
+  path: '/assignor/create',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const PayableUpdateIdRoute = PayableUpdateIdImport.update({
   id: '/payable/update/$id',
   path: '/payable/update/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PayableDetailsIdRoute = PayableDetailsIdImport.update({
+  id: '/payable/details/$id',
+  path: '/payable/details/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AssignorDetailsIdRoute = AssignorDetailsIdImport.update({
+  id: '/assignor/details/$id',
+  path: '/assignor/details/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -72,6 +86,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/assignor/create': {
+      id: '/assignor/create'
+      path: '/assignor/create'
+      fullPath: '/assignor/create'
+      preLoaderRoute: typeof AssignorCreateImport
+      parentRoute: typeof rootRoute
+    }
     '/payable/create': {
       id: '/payable/create'
       path: '/payable/create'
@@ -79,11 +100,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PayableCreateImport
       parentRoute: typeof rootRoute
     }
-    '/assignor/': {
-      id: '/assignor/'
-      path: '/assignor'
-      fullPath: '/assignor'
-      preLoaderRoute: typeof AssignorIndexImport
+    '/payable/list': {
+      id: '/payable/list'
+      path: '/payable/list'
+      fullPath: '/payable/list'
+      preLoaderRoute: typeof PayableListImport
       parentRoute: typeof rootRoute
     }
     '/login/': {
@@ -93,11 +114,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginIndexImport
       parentRoute: typeof rootRoute
     }
-    '/payable/': {
-      id: '/payable/'
-      path: '/payable'
-      fullPath: '/payable'
-      preLoaderRoute: typeof PayableIndexImport
+    '/assignor/details/$id': {
+      id: '/assignor/details/$id'
+      path: '/assignor/details/$id'
+      fullPath: '/assignor/details/$id'
+      preLoaderRoute: typeof AssignorDetailsIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/payable/details/$id': {
+      id: '/payable/details/$id'
+      path: '/payable/details/$id'
+      fullPath: '/payable/details/$id'
+      preLoaderRoute: typeof PayableDetailsIdImport
       parentRoute: typeof rootRoute
     }
     '/payable/update/$id': {
@@ -114,29 +142,35 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/assignor/create': typeof AssignorCreateRoute
   '/payable/create': typeof PayableCreateRoute
-  '/assignor': typeof AssignorIndexRoute
+  '/payable/list': typeof PayableListRoute
   '/login': typeof LoginIndexRoute
-  '/payable': typeof PayableIndexRoute
+  '/assignor/details/$id': typeof AssignorDetailsIdRoute
+  '/payable/details/$id': typeof PayableDetailsIdRoute
   '/payable/update/$id': typeof PayableUpdateIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/assignor/create': typeof AssignorCreateRoute
   '/payable/create': typeof PayableCreateRoute
-  '/assignor': typeof AssignorIndexRoute
+  '/payable/list': typeof PayableListRoute
   '/login': typeof LoginIndexRoute
-  '/payable': typeof PayableIndexRoute
+  '/assignor/details/$id': typeof AssignorDetailsIdRoute
+  '/payable/details/$id': typeof PayableDetailsIdRoute
   '/payable/update/$id': typeof PayableUpdateIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/assignor/create': typeof AssignorCreateRoute
   '/payable/create': typeof PayableCreateRoute
-  '/assignor/': typeof AssignorIndexRoute
+  '/payable/list': typeof PayableListRoute
   '/login/': typeof LoginIndexRoute
-  '/payable/': typeof PayableIndexRoute
+  '/assignor/details/$id': typeof AssignorDetailsIdRoute
+  '/payable/details/$id': typeof PayableDetailsIdRoute
   '/payable/update/$id': typeof PayableUpdateIdRoute
 }
 
@@ -144,45 +178,55 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/assignor/create'
     | '/payable/create'
-    | '/assignor'
+    | '/payable/list'
     | '/login'
-    | '/payable'
+    | '/assignor/details/$id'
+    | '/payable/details/$id'
     | '/payable/update/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/assignor/create'
     | '/payable/create'
-    | '/assignor'
+    | '/payable/list'
     | '/login'
-    | '/payable'
+    | '/assignor/details/$id'
+    | '/payable/details/$id'
     | '/payable/update/$id'
   id:
     | '__root__'
     | '/'
+    | '/assignor/create'
     | '/payable/create'
-    | '/assignor/'
+    | '/payable/list'
     | '/login/'
-    | '/payable/'
+    | '/assignor/details/$id'
+    | '/payable/details/$id'
     | '/payable/update/$id'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  AssignorCreateRoute: typeof AssignorCreateRoute
   PayableCreateRoute: typeof PayableCreateRoute
-  AssignorIndexRoute: typeof AssignorIndexRoute
+  PayableListRoute: typeof PayableListRoute
   LoginIndexRoute: typeof LoginIndexRoute
-  PayableIndexRoute: typeof PayableIndexRoute
+  AssignorDetailsIdRoute: typeof AssignorDetailsIdRoute
+  PayableDetailsIdRoute: typeof PayableDetailsIdRoute
   PayableUpdateIdRoute: typeof PayableUpdateIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  AssignorCreateRoute: AssignorCreateRoute,
   PayableCreateRoute: PayableCreateRoute,
-  AssignorIndexRoute: AssignorIndexRoute,
+  PayableListRoute: PayableListRoute,
   LoginIndexRoute: LoginIndexRoute,
-  PayableIndexRoute: PayableIndexRoute,
+  AssignorDetailsIdRoute: AssignorDetailsIdRoute,
+  PayableDetailsIdRoute: PayableDetailsIdRoute,
   PayableUpdateIdRoute: PayableUpdateIdRoute,
 }
 
@@ -197,27 +241,35 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/assignor/create",
         "/payable/create",
-        "/assignor/",
+        "/payable/list",
         "/login/",
-        "/payable/",
+        "/assignor/details/$id",
+        "/payable/details/$id",
         "/payable/update/$id"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/assignor/create": {
+      "filePath": "assignor/create.tsx"
+    },
     "/payable/create": {
       "filePath": "payable/create.tsx"
     },
-    "/assignor/": {
-      "filePath": "assignor/index.tsx"
+    "/payable/list": {
+      "filePath": "payable/list.tsx"
     },
     "/login/": {
       "filePath": "login/index.tsx"
     },
-    "/payable/": {
-      "filePath": "payable/index.tsx"
+    "/assignor/details/$id": {
+      "filePath": "assignor/details.$id.tsx"
+    },
+    "/payable/details/$id": {
+      "filePath": "payable/details.$id.tsx"
     },
     "/payable/update/$id": {
       "filePath": "payable/update.$id.tsx"
