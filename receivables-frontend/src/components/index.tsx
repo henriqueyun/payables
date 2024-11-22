@@ -71,19 +71,45 @@ export const ListItem = styled.li`
 export const ListItemActions = styled.span`
   display: flex;
   padding-top: 8px;
-  gap: 20px;
+  gap: 8px;
   justify-content: end;
   font-weight: 600;
 `
 
-export const FormActions = ListItemActions
+export const FormActions = styled.span`
+  display: flex;
+  padding-top: 8px;
+  gap: 20px;
+  font-weight: 500;
+  justify-content: center;
+`
+
+export const FormButton = styled.button`
+  background: #0a36b0d9;
+  border: none;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+
+  &:hover {
+    color: lightgreen;
+    cursor: pointer;
+  }
+  &:active {
+    border-radius: 2px;
+    border-color: lightgray;
+  }
+`
+
+export const ListItemButton = FormButton
 
 export const Button = styled.button`
   background: #0a36b0d9;
   border: none;
   color: white;
   padding: 12px 64px;
-  font-weight: 700;
+  font-weight: 600;
   border-radius: 4px;
   border: 2px solid transparent;
 

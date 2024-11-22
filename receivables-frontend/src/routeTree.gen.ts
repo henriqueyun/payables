@@ -8,11 +8,10 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
 import { Route as LoginIndexImport } from './routes/login/index'
 import { Route as PayableListImport } from './routes/payable/list'
 import { Route as PayableCreateImport } from './routes/payable/create'
@@ -21,17 +20,13 @@ import { Route as PayableUpdateIdImport } from './routes/payable/update.$id'
 import { Route as PayableDetailsIdImport } from './routes/payable/details.$id'
 import { Route as AssignorDetailsIdImport } from './routes/assignor/details.$id'
 
-// Create Virtual Routes
-
-const IndexLazyImport = createFileRoute('/')()
-
 // Create/Update Routes
 
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any)
 
 const LoginIndexRoute = LoginIndexImport.update({
   id: '/login/',
@@ -83,7 +78,7 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/assignor/create': {
@@ -141,7 +136,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
+  '/': typeof IndexRoute
   '/assignor/create': typeof AssignorCreateRoute
   '/payable/create': typeof PayableCreateRoute
   '/payable/list': typeof PayableListRoute
@@ -152,7 +147,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
+  '/': typeof IndexRoute
   '/assignor/create': typeof AssignorCreateRoute
   '/payable/create': typeof PayableCreateRoute
   '/payable/list': typeof PayableListRoute
@@ -164,7 +159,7 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
+  '/': typeof IndexRoute
   '/assignor/create': typeof AssignorCreateRoute
   '/payable/create': typeof PayableCreateRoute
   '/payable/list': typeof PayableListRoute
@@ -209,7 +204,7 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
+  IndexRoute: typeof IndexRoute
   AssignorCreateRoute: typeof AssignorCreateRoute
   PayableCreateRoute: typeof PayableCreateRoute
   PayableListRoute: typeof PayableListRoute
@@ -220,7 +215,7 @@ export interface RootRouteChildren {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
+  IndexRoute: IndexRoute,
   AssignorCreateRoute: AssignorCreateRoute,
   PayableCreateRoute: PayableCreateRoute,
   PayableListRoute: PayableListRoute,
@@ -251,7 +246,7 @@ export const routeTree = rootRoute
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
     "/assignor/create": {
       "filePath": "assignor/create.tsx"

@@ -1,17 +1,18 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import PayableForm from '../../components/PayableForm'
+import { Title } from '../components'
 
-const PayableCreate = () => {
-  return <PayableForm action="create" />
-}
-
-export const Route = createFileRoute('/payable/create')({
-  component: PayableCreate,
+export const Route = createFileRoute('/')({
+  component: RouteComponent,
   beforeLoad: ({ context, location }) => {
     if (!context.auth.isAuthenticated()) {
       throw redirect({
         to: '/login',
+
       })
     }
   },
 })
+
+function RouteComponent() {
+  return <Title>Welcome to Payables by Bank.me</Title>
+}

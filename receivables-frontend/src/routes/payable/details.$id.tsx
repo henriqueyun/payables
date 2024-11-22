@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Payable } from '../../client/types/Payable'
 import { HTTPClient } from '../../client/HTTPClient'
@@ -21,4 +21,12 @@ const PayableInfo = () => {
 
 export const Route = createFileRoute('/payable/details/$id')({
   component: PayableInfo,
+  beforeLoad: ({ context, location }) => {
+    if (!context.auth.isAuthenticated()) {
+      throw redirect({
+        to: '/login',
+
+      })
+    }
+  },
 })

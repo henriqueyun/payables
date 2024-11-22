@@ -1,8 +1,7 @@
 import styled from "styled-components"
 import BankMeLogotype from '../../assets/bank-me-logotype.png'
-import { Link } from "@tanstack/react-router"
 
-const Navbar = styled.nav`
+export const Navbar = styled.nav`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -12,36 +11,34 @@ const Navbar = styled.nav`
     box-shadow:0 0 32px -16px rgba(0,0,0,.32);
 `
 
-const BankMeLogotypeImg = styled.img`
+export const BankMeLogotypeImg = styled.img`
     width: 156px;
     height: 104px;
 `
 
-const Logotype = styled.h2`
+export const Logotype = styled.h2`
     font-weight: bold;
 `
-
-const NavLogotype = styled.span`
+export const NavLogotype = styled.span`
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
 `
 
-
-const NavMenu = styled.ul`
+export const NavMenu = styled.ul`
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    list-styke-type: none;
+    list-style-type: none;
     gap: 16px;
     justify-content: center;
     align-items: center;
 `
 
-const NavUserMenu = NavMenu
+export const NavUserMenu = NavMenu
 
-const NavMenuItem = styled.li`
+export const NavMenuItem = styled.li`
     text-decoration: none;
     color: inherit;
     font-weight: 600;
@@ -52,7 +49,7 @@ const NavMenuItem = styled.li`
     }
 `
 
-const MainMenu = styled.div`
+export const MainMenu = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -60,30 +57,13 @@ const MainMenu = styled.div`
     gap: 48px;
 `
 
-const NavUserMenuItem = NavMenuItem
+export const NavUserMenuItem = NavMenuItem
 
-const Nav = () => {
+export const NavLogotypeComponent = () => {
     return (
-        <Navbar>
-            <MainMenu>
-                <Link to="/">
-                    <NavLogotype>
-                        <BankMeLogotypeImg src={BankMeLogotype} />
-                        <Logotype>Payables</Logotype>
-                    </NavLogotype>
-                </Link>
-                <NavMenu>
-                    <NavMenuItem><Link to="/payable/list">List</Link></NavMenuItem>
-                    <NavMenuItem><Link to="/payable/create">New Payable</Link></NavMenuItem>
-                    <NavMenuItem><Link to="/assignor/create">New Assignor</Link></NavMenuItem>
-                </NavMenu>
-            </MainMenu>
-            <NavUserMenu>
-                <NavUserMenuItem><Link to="/payable/create">Sair</Link></NavUserMenuItem>
-            </NavUserMenu>
-        </Navbar>
+        <NavLogotype>
+            <BankMeLogotypeImg src={BankMeLogotype} />
+            <Logotype>Payables</Logotype>
+        </NavLogotype>
     )
-
 }
-
-export default Nav

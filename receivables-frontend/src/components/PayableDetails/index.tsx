@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { Payable } from '../../client/types/Payable'
-import { FormActions, FormFieldSpan, FormMain, Subtitle, Title } from '..'
+import { FormActions, FormButton, FormFieldSpan, FormMain, Subtitle, Title } from '..'
 import { Link } from '@tanstack/react-router'
 
 
@@ -60,7 +60,7 @@ const PayableDetails = ({ payable }: { payable: Payable }) => {
                     readOnly
                 />
                 <FormActions>
-                    <Link to={`/assignor/details/${payable.assignor}`}>Details</Link>
+                    <Link to={`/assignor/details/${payable.assignor}`}><FormButton>Details</FormButton></Link>
                 </FormActions>
             </FormFieldSpan>
         </FormMain>

@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, redirect } from '@tanstack/react-router'
 import { Payable } from '../../client/types/Payable'
 import { HTTPClient } from '../../client/HTTPClient'
-import { BlankListItem, List, ListDivider, ListItem, ListItemActions, Title } from '../../components'
+import { BlankListItem, List, ListDivider, ListItem, ListItemActions, ListItemButton, Title } from '../../components'
 import dayjs from 'dayjs'
 
 const PayableList = () => {
@@ -50,9 +50,9 @@ const PayableList = () => {
               <strong>Assignor</strong> {p.assignor}
             </span>
             <ListItemActions>
-              <Link to={`/payable/details/${p.id}`}>Details</Link>
-              <Link to={`/payable/update/${p.id}`}>Edit</Link>
-              <Link onClick={() => mutation.mutate(p.id)}>Delete</Link>
+              <Link to={`/payable/details/${p.id}`}><ListItemButton>Details</ListItemButton></Link>
+              <Link to={`/payable/update/${p.id}`}><ListItemButton>Edit</ListItemButton></Link>
+              <Link onClick={() => mutation.mutate(p.id)}><ListItemButton>Delete</ListItemButton></Link>
             </ListItemActions>
             <ListDivider />
           </ListItem>
@@ -64,4 +64,12 @@ const PayableList = () => {
 
 export const Route = createFileRoute('/payable/list')({
   component: PayableList,
+  beforeLoad: ({ context, location }) => {
+    if (!context.auth.isAuthenticated()) {
+      throw redirect({
+        to: '/login',
+
+      })
+    }
+  },
 })
